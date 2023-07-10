@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./css/style.css">
+  <script defer src="js/main.js"></script>  
+  <title>Mastermind</title>
+</head>
+  <!--
+    Pseudocode for the overall gameplay
+    0.Check the layout on the web page when finished one step, don't run too far.
+    1.Set a <div> called board inside <body>.
+    2.Inside div#board, set a <h1> callede titlle, a play<button> and a div#decodingBoard.
+    3.Inside div#decodingBoard(to guess code), there's a grid that 2cols * 11 rows.
+    4.Inside the gird of div#decodingBoard, there should be two parts:
+      4.1.There are 2*2 grids for keypegs board.
+      4.2.There are 4 rows flex for codepegs board.
+    5.At the end, add a box that contains colors selection and a confirm <button> at the right bottom. box is out of the #board.
+    6.Create a <div>container to include #board and #selectionBox.
+  -->
+<body>
+
+  <div id="container">
+
+    <div id="board">
+      <h1 id="title">MasterMind</h1>
+  
+      <button id="startBtn">start</button>
+  
+      <div id="decodingBoard">
+        <div class="keyPegsNodisplay"></div>
+        <div class="shield">
+          <div class="secretCode"></div>
+          <div class="secretCode"></div>
+          <div class="secretCode"></div>
+          <div class="secretCode"></div>
+        </div>
+  
+        <div class="keyPegs">
+          <div class="keyPeg"></div>
+          <div class="keyPeg"></div>
+          <div class="keyPeg"></div>
+          <div class="keyPeg"></div>
+        </div>
+        <div class="codePegs">
+          <div class="codePeg"></div>
+          <div class="codePeg"></div>
+          <div class="codePeg"></div>
+          <div class="codePeg"></div>
+        </div>
+  
+        <div class="keyPegs">
+          <div class="keyPeg"></div>
+          <div class="keyPeg"></div>
+          <div class="keyPeg"></div>
+          <div class="keyPeg"></div>
+        </div>
+        <div class="codePegs">
+          <div class="codePeg"></div>
+          <div class="codePeg"></div>
+          <div class="codePeg"></div>
+          <div class="codePeg"></div>
+        </div>
+  
+        <div class="keyPegs">
+          <div class="keyPeg"></div>
+          <div class="keyPeg"></div>
+          <div class="keyPeg"></div>
+          <div class="keyPeg"></div>
+        </div>
+        <div class="codePegs">
+          <div class="codePeg"></div>
+          <div class="codePeg"></div>
+          <div class="codePeg"></div>
+          <div class="codePeg"></div>
+        </div>
+  
+        <div class="keyPegs">
+          <div class="keyPeg"></div>
+          <div class="keyPeg"></div>
+          <div class="keyPeg"></div>
+          <div class="keyPeg"></div>
+        </div>
+        <div class="codePegs">
+          <div class="codePeg"></div>
+          <div class="codePeg"></div>
+          <div class="codePeg"></div>
+          <div class="codePeg"></div>
+        </div>
+  
+        <div class="keyPegs">
+          <div class="keyPeg"></div>
+          <div class="keyPeg"></div>
+          <div class="keyPeg"></div>
+          <div class="keyPeg"></div>
+        </div>
+        <div class="codePegs">
+          <div class="codePeg"></div>
+          <div class="codePeg"></div>
+          <div class="codePeg"></div>
+          <div class="codePeg"></div>
+        </div>
+  
+        <div class="keyPegs">
+          <div class="keyPeg"></div>
+          <div class="keyPeg"></div>
+          <div class="keyPeg"></div>
+          <div class="keyPeg"></div>
+        </div>
+        <div class="codePegs">
+          <div class="codePeg"></div>
+          <div class="codePeg"></div>
+          <div class="codePeg"></div>
+          <div class="codePeg"></div>
+        </div>
+  
+        <div class="keyPegs">
+          <div class="keyPeg"></div>
+          <div class="keyPeg"></div>
+          <div class="keyPeg"></div>
+          <div class="keyPeg"></div>
+        </div>
+        <div class="codePegs">
+          <div class="codePeg"></div>
+          <div class="codePeg"></div>
+          <div class="codePeg"></div>
+          <div class="codePeg"></div>
+        </div>
+  
+        <div class="keyPegs">
+          <div class="keyPeg"></div>
+          <div class="keyPeg"></div>
+          <div class="keyPeg"></div>
+          <div class="keyPeg"></div>
+        </div>
+        <div class="codePegs">
+          <div class="codePeg"></div>
+          <div class="codePeg"></div>
+          <div class="codePeg"></div>
+          <div class="codePeg"></div>
+        </div>
+  
+        <div class="keyPegs">
+          <div class="keyPeg"></div>
+          <div class="keyPeg"></div>
+          <div class="keyPeg"></div>
+          <div class="keyPeg"></div>
+        </div>
+        <div class="codePegs">
+          <div class="codePeg"></div>
+          <div class="codePeg"></div>
+          <div class="codePeg"></div>
+          <div class="codePeg"></div>
+        </div>
+  
+        <div class="keyPegs">
+          <div class="keyPeg"></div>
+          <div class="keyPeg"></div>
+          <div class="keyPeg"></div>
+          <div class="keyPeg"></div>
+        </div>
+        <div class="codePegs">
+          <div class="codePeg"></div>
+          <div class="codePeg"></div>
+          <div class="codePeg"></div>
+          <div class="codePeg"></div>
+        </div>
+       
+      </div>
+    </div>  
+
+    <div id="selectionBox">
+      <div class="colorsBox">
+        <div class="color"></div>
+        <div class="color"></div>
+        <div class="color"></div>
+        <div class="color"></div>
+        <div class="color"></div>
+        <div class="color"></div>
+      </div>
+      <button id="confirmBtn">confirm</button>
+    </div>
+
+  </div>
+  
+</body>
+</html>
+
