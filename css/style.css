@@ -5,7 +5,6 @@ Pseudocode for the overall gameplay
 2.The color of code pegs is [yello, green, red, blue, black, white].
 3.The color of key pegs is [black, white].
 4.Then a circle of code pegs be selected, style changed
-5.Maybe add a new page to explain the rules if have enough time.
 */
 body {
   box-sizing: border-box;
@@ -14,21 +13,15 @@ body {
   align-items: center;
 }
 
-#container {
-  border: 1vmin solid gray;
-  display: flex;
-  height: 70vh;
-  width: 40vh;
-}
-
 #board {
   border: 1vmin solid gray;
   height: 70vh;
-  width: 30vh;
+  width: 40vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  background-color: lightgrey;
 }
 
 #title {
@@ -36,16 +29,21 @@ body {
 }
 
 #decodingBoard {
-  border: 1vmin solid rgb(69, 138, 211);
+  border: 0vmin solid rgb(69, 138, 211);
   display: grid;
   grid-template-columns: 1fr 4fr;
   grid-template-rows: 11;
-  width: 30vh;
+  width: 40vh;
+  height: 60vh;
 }
 
 .keyPegsNodisplay, .keyPegs{
   border: 1px solid rgb(98, 32, 203);
   height: 5vh;
+  text-align: center;
+}
+
+.keyPegs {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
@@ -55,6 +53,7 @@ body {
 
 .shield, .codePegs {
   border: 1px solid rgb(4, 129, 10);
+  height: 5vh;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -77,13 +76,47 @@ body {
 
 .controlBoard {
   display: flex;
+  width: 40vh;
+  justify-content: space-evenly;
+  margin-top: 10px;
 }
 
+button {
+  width: 10vmin;
+}
 
 .color {
-  border: 1vmin solid gray;
+  border: ovmin solid gray;
   border-radius: 50%;
   background-color: gray;
-  width: 2vmin;
-  height: 2vmin;
+  width: 3vmin;
+  height: 3vmin;
+}
+
+#yellow {
+  background-color: yellow;
+}
+
+#green {
+  background-color: green;
+}
+
+#blue {
+  background-color: blue;
+}
+
+#red {
+  background-color: red;
+}
+
+#black {
+  background-color: black;
+}
+
+#white {
+  background-color: white;
+}
+
+h1 {
+  margin: 5px;
 }
