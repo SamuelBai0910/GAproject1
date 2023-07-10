@@ -1,6 +1,6 @@
 /*
 Pseudocode for the overall gameplay
-0.Check the effect on the web page when finished one step, don't run too far.
+0.Check on the web page when finished one step, don't run too far.
 1.The background-color of the board is like the 1972 version.
 2.The color of code pegs is [yello, green, red, blue, black, white].
 3.The color of key pegs is [black, white].
@@ -75,32 +75,15 @@ body {
   border-radius: 50%;
 }
 
-
-#container {
-  align-items: flex-end;
-}
-
-#selectionBox {
+.controlBoard {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 
-.colorsBox {
-  border: 1vmin solid gray;
-  width: 12vmin;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  justify-items: center;
-
-}
 
 .color {
   border: 1vmin solid gray;
   border-radius: 50%;
   background-color: gray;
-  width: 0vmin;
-  height: 0vmin;
+  width: 2vmin;
+  height: 2vmin;
 }

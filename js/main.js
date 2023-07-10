@@ -1,5 +1,6 @@
 /*
 Pseudocode for the overall gameplay
+0.Check on the console when finished one step, don't run too far.
 1.Create a object to store data of code pegs {yello:1, ...white:6}
 2.Create a object to store data of key pegs {black:1, wihte:0}
 3.Generate a random secret code consisting of colored pegs.
