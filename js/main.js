@@ -17,10 +17,12 @@ Pseudocode for the overall gameplay
 */
 
 /*----- constants -----*/
-
+const colors = [
+  'yellow', 'green', 'red', 'blue', 'white', 'black'
+];
 
 /*----- state variables -----*/
-
+let secretCode = [];
 
 /*----- cached elements  -----*/
 
@@ -29,3 +31,11 @@ Pseudocode for the overall gameplay
 
 
 /*----- functions -----*/
+//let computer pick four random colors as secrect code
+const pickSecretCode = function (){
+  for (i = 0; i < colors.length - 2; i++) {
+    secretCode.push(colors[Math.floor(colors.length * Math.random())]);
+  }
+  return secretCode;
+}
+
