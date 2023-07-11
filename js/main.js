@@ -17,25 +17,39 @@ Pseudocode for the overall gameplay
 */
 
 /*----- constants -----*/
+//Create a constant to store the value of colors.
 const colors = [
   'yellow', 'green', 'red', 'blue', 'white', 'black'
 ];
 
 /*----- state variables -----*/
+//Create a variable to store the secret code.
 let secretCode = [];
+//Create a variable to store the codepeg that be clicked curretly.
+let currentCodePeg = null;
 
 /*----- cached elements  -----*/
+const codePegs = document.querySelectorAll('.codePeg');
 
 
 /*----- event listeners -----*/
-
+for (const codePeg of codePegs) {
+  codePeg.addEventListener('click', function(evt) {
+    if (currentCodePeg) {
+      currentCodePeg.style.boxShadow = 'none';
+    } 
+    currentCodePeg = evt.target;
+    currentCodePeg.style.boxShadow = '5px 5px #1c0303';
+  });
+}
 
 /*----- functions -----*/
 //let computer pick four random colors as secrect code
-const pickSecretCode = function (){
-  for (i = 0; i < colors.length - 2; i++) {
+const pickSecretCode = function () {
+  for (let i = 0; i < colors.length - 2; i++) {
     secretCode.push(colors[Math.floor(colors.length * Math.random())]);
   }
   return secretCode;
 }
+
 
