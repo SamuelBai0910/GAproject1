@@ -32,6 +32,9 @@ let currentCodePeg = null;
 //Create a variable to store the color that be selected.
 let selectedColor;
 
+//Make sure computer just pick secret code one time when clicked the startBtn.
+let gameStarted = false;
+
 /*----- cached elements  -----*/
 const codePegs = document.querySelectorAll('.codePeg');
 //cache colors divs to add event listener to store the color that be picked.
@@ -42,10 +45,14 @@ const startBtn = document.getElementById('startBtn');
 /*----- event listeners -----*/
 //only the codePeg that be clicked can change style.
 startBtn.addEventListener ('click', function() {
-  pickSecretCode();
-  console.log(secretCode);
+  if (!gameStarted) {
+    pickSecretCode();
+    gameStarted = true;
+    console.log(secretCode);
+  }
 });
 
+//codePeg change style when it's clicked, others won't.
 for (const codePeg of codePegs) {
   codePeg.addEventListener('click', function(evt) {
     if (currentCodePeg) {
@@ -56,9 +63,9 @@ for (const codePeg of codePegs) {
   });
 }
 
+//make sure the id name of clicked color is the backgroundcolor of codePeg
 for (const colorSelection of colorSelections) {
   colorSelection.addEventListener('click', function(evt) {
-    //get the id name of div.color to change to backgroundcolor of codePeg
     selectedColor = evt.target.id;
     if (currentCodePeg) {
       currentCodePeg.style.backgroundColor = selectedColor;
@@ -69,7 +76,7 @@ for (const colorSelection of colorSelections) {
 /*----- functions -----*/
 //let computer pick four random colors as secrect code
 const pickSecretCode = function () {
-  for (let i = 0; i < colors.length - 2; i++) {
+  for (let i = 0; i < 4; i++) {
     secretCode.push(colors[Math.floor(colors.length * Math.random())]);
   }
   return secretCode;
