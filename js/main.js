@@ -25,21 +25,44 @@ const colors = [
 /*----- state variables -----*/
 //Create a variable to store the secret code.
 let secretCode = [];
+
 //Create a variable to store the codepeg that be clicked curretly.
 let currentCodePeg = null;
 
+//Create a variable to store the color that be selected.
+let selectedColor;
+
 /*----- cached elements  -----*/
 const codePegs = document.querySelectorAll('.codePeg');
-
+//cache colors divs to add event listener to store the color that be picked.
+const colorSelections = document.querySelectorAll('.color');
+//pick secret code when clicked the start button
+const startBtn = document.getElementById('startBtn');
 
 /*----- event listeners -----*/
+//only the codePeg that be clicked can change style.
+startBtn.addEventListener ('click', function() {
+  pickSecretCode();
+  console.log(secretCode);
+});
+
 for (const codePeg of codePegs) {
   codePeg.addEventListener('click', function(evt) {
     if (currentCodePeg) {
       currentCodePeg.style.boxShadow = 'none';
     } 
     currentCodePeg = evt.target;
-    currentCodePeg.style.boxShadow = '5px 5px #1c0303';
+    currentCodePeg.style.boxShadow = '2px 2px 2px 1px #1c0303';
+  });
+}
+
+for (const colorSelection of colorSelections) {
+  colorSelection.addEventListener('click', function(evt) {
+    //get the id name of div.color to change to backgroundcolor of codePeg
+    selectedColor = evt.target.id;
+    if (currentCodePeg) {
+      currentCodePeg.style.backgroundColor = selectedColor;
+    }
   });
 }
 
@@ -51,5 +74,7 @@ const pickSecretCode = function () {
   }
   return secretCode;
 }
+
+
 
 
