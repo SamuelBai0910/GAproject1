@@ -59,14 +59,14 @@ body {
   align-items: center;
 }
 
-.keyPeg {
+.keyPegs > div {
   border-radius: 50%;
   background-color: gray;
   width: 2vmin;
   height: 2vmin;
 }
 
-.secretCode, .codePeg {
+.secretCode, .codePegs > div {
   width: 4vmin;
   height: 4vmin;
   background-color: gray;

@@ -3,7 +3,7 @@ Pseudocode for the overall gameplay
 0.Check on the console when finished one step, don't run too far.
 1.Create a object to store data of code pegs {yello:1, ...white:6}
 2.Create a object to store data of key pegs {black:1, wihte:0}
-3.Generate a random secret code consisting of colored pegs.
+3.Generate a random secret code consisting of colored pegs. done
 4.Write a init function that render() when game end.
 5.Set the maximum guesses round number of 10.
 6.Repeat untill player win or runs out of guesses round.
@@ -22,7 +22,15 @@ const colors = [
   'yellow', 'green', 'red', 'blue', 'white', 'black'
 ];
 
+//
+
+//find out which row is selected now, other rows don't change styles.
+let currentRow = 0;
+
 /*----- state variables -----*/
+//Make sure computer just pick secret code one time when clicked the startBtn.
+let gameStarted = false;
+
 //Create a variable to store the secret code.
 let secretCode = [];
 
@@ -32,24 +40,44 @@ let currentCodePeg = null;
 //Create a variable to store the color that be selected.
 let selectedColor;
 
-//Make sure computer just pick secret code one time when clicked the startBtn.
-let gameStarted = false;
+
+
 
 /*----- cached elements  -----*/
-const codePegs = document.querySelectorAll('.codePeg');
-//cache colors divs to add event listener to store the color that be picked.
-const colorSelections = document.querySelectorAll('.color');
 //pick secret code when clicked the start button
 const startBtn = document.getElementById('startBtn');
+
+//Cache the confirm button
+const confirmButton = document.getElementById('confirmBtn');
+
+//Create an array that contains all div.codePegs, can use array.length to get row information.
+const codePegRows = document.querySelectorAll('.codePegs');
+
+//Create an array that contains all div.codePeg
+const codePegs = document.querySelectorAll('.codePeg');
+
+//cache colors divs to add event listener to store the color that be picked.
+const colorSelections = document.querySelectorAll('.color');
+
+
+
+
+
 
 /*----- event listeners -----*/
 //only the codePeg that be clicked can change style.
 startBtn.addEventListener ('click', function() {
+  //make sure there's only pick secretCode one time when start button clicked
   if (!gameStarted) {
     pickSecretCode();
     gameStarted = true;
     console.log(secretCode);
   }
+  //Control selections using DOM with adding classname 'selectable'.
+  const initialCodePegs = codePegRows[9].querySelectorAll('.codePeg');
+  initialCodePegs.forEach((codePeg) => {
+    codePeg.classList.add('selectable');
+  });
 });
 
 //codePeg change style when it's clicked, others won't.
@@ -59,7 +87,9 @@ for (const codePeg of codePegs) {
       currentCodePeg.style.boxShadow = 'none';
     } 
     currentCodePeg = evt.target;
-    currentCodePeg.style.boxShadow = '2px 2px 2px 1px #1c0303';
+    if (currentCodePeg.classList.contains('selectable')){
+      currentCodePeg.style.boxShadow = '2px 2px 2px 1px #1c0303';
+    }
   });
 }
 
