@@ -46,7 +46,7 @@ let selectedColor;
 //Create a variable to store the statement of game.
 let gameEnded = true;
 
-
+let row = 9;
 
 /*----- cached elements  -----*/
 //pick secret code when clicked the start button
@@ -78,7 +78,7 @@ const colorSelections = document.querySelectorAll('.color');
 const numRows = codePegRows.length;
 const currentRowArrays = [];
 
-for (var i = 0; i < numRows; i++) {
+for (let i = 0; i < numRows; i++) {
   currentRowArrays[i] = Array.from(codePegRows[i].children);
 }
 
@@ -92,7 +92,7 @@ startBtn.addEventListener ('click', function() {
     console.log(secretCode);
   }
   //Control selections using DOM with adding classname 'selectable'.
-  const initialCodePegs =   Array.from(codePegRows[9].children);
+  const initialCodePegs = Array.from(codePegRows[9].children);
   initialCodePegs.forEach((codePeg) => {
     codePeg.classList.add('selectable');
   });
@@ -120,27 +120,27 @@ for (const codePeg of codePegs) {
 
 //Use array[],DOM classname 'selected', background of codePeg to manage which row can be selected from array[9] to array [0]. Based on add event listener to confirm button.
 
+
 confirmBtn.addEventListener('click', function() {
-  // console.log(currentRow9Arr);
-  // console.log(currentRow9Arr[0].style.backgroundColor);
-  // for (currentRowArr of currentRow9Arr) {
-  //   if (currentRowArr.style.backgroundColor !== 'gray') {
-  //     console.log('noGray');
-  //   } else {
-  //     console.log('Gray');
-  //   }
-  // }
-  const isGray = currentRow9Arr.some((currentRowArr) => currentRowArr.style.backgroundColor === 'gray');
-  console.log(isGray);
-  if (isGray === false) {
-    currentRow9Arr.forEach((codePeg) => {
+  const isGray = currentRowArrays[row].find((codePeg) => codePeg.style.backgroundColor === 'gray');
+
+  if (isGray) {
+    return;
+  } else {
+    currentRowArrays[row].forEach((codePeg) => {
       codePeg.classList.remove('selectable');
     });
-    codePegRows[8].forEach((codePeg) => {
+
+    currentRowArrays[row - 1].forEach((codePeg) => {
       codePeg.classList.add('selectable');
     });
-  }
+
+    row = row - 1;
+  } 
+  console.log(row);
 });
+
+
 
 
 //make sure the id name of clicked color is the backgroundcolor of codePeg
@@ -163,6 +163,15 @@ const pickSecretCode = function () {
   return secretCode;
 }
 
+// const confirmBtn = document.getElementById('confirmBtn');
 
+// const numRows = codePegRows.length;
+// const currentRowArrays = [];
 
+// for (let i = 0; i < numRows; i++) {
+//   currentRowArrays[i] = Array.from(codePegRows[i].children);
+// }
 
+// const noGray = currentRowArrays[i].some((codePeg) => codePeg.style.backgroundColor !== 'gray');
+
+// 我需要从i=9开始，每次点击<button>confirm</button>的时候，从currentRowArrays[9]开始，检查当中的noGray是否===true, 如果不是，就退出循环；如果是，就把currentRowArrays[9]中元素所有的'selectable' 从classList中remove，同时把'selectable'添加到currentRowArrays[8]中所有元素的classList中。然后让i=8，存储i的value。
