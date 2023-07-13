@@ -4,6 +4,7 @@
   Mastermind was invented in 1970 by Mordecai Meirowitz, an Israeli postmaster and telecommunications expert.
 
   Starting in 1973, the game box featured a photograph of a man in a suit jacket seated in the foreground, with a young Asian woman standing behind him. The two amateur models (Bill Woodward and Cecilia Fung) reunited in June 2003 to pose for another publicity photo.
+
   ![alt text](https://web.archive.org/web/20040318104840im_/http://www.le.ac.uk/press/press/mastermind1.jpg)
 
 ## Browser Version Gameplay and rules
@@ -13,7 +14,7 @@ This browser version gameplay is played using:
 * code pegs of six different colors. 
 * key pegs of three different colors.
 
-There're two players in this gama:
+There're two players in this game:
 
 * Computer player picks random secret code.
 * Human player guesses secret code.

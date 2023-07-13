@@ -257,6 +257,7 @@ const testGameResult = function() {
   codePegs.forEach((codePeg) => {
     codePeg.style.backgroundColor = 'green';
   });
+    compareCodes()
     openShield()
     showLose()
     gameEnd()
