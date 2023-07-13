@@ -38,10 +38,14 @@ const confirmBtn = document.getElementById('confirmBtn');
 //Create an array that contains all div.codePegs, can use array.length to get row information.
 const codePegRows = document.querySelectorAll('.codePegs');
 
+//Create an array that contains all div.keyPegs, can use array.length to get row information.
 const KeyPegRows = document.querySelectorAll('.keyPegs');
 
 //Create an array that contains all div.codePeg
 const codePegs = document.querySelectorAll('.codePeg');
+
+//Create an array that contains all div.secretCode.
+const shield = document.querySelectorAll('.secretCode');
 
 //Create an array that contains all div.keyPeg
 const keyPegs = document.querySelectorAll('.keyPeg');
@@ -60,11 +64,14 @@ for (let i = 0; i < numRows; i++) {
   currentKeyPegArr[i] = Array.from(KeyPegRows[i].children);
 }
 
+//Cache the <h1> to show result
+const result = document.querySelector('#title');
 
 /*----- event listeners -----*/
 //only the codePeg that be clicked can change style.
 startBtn.addEventListener ('click', function() {
   //make sure there's only pick secretCode one time when start button clicked
+  result.innerText = 'MasterMind';
   if (!gameStarted) {
     pickSecretCode();
     gameStarted = true;
@@ -189,3 +196,16 @@ const compareCodes = function() {
   }
 };
 
+const openShield = function () {
+  for (let i = 0; i < 4; i++) {
+    shield[i].style.backgroundColor = secretCode[i];
+  }
+}
+
+const showWin = function () {
+  result.innerText = 'You win! Master!';
+} 
+
+const showLose = function () {
+  result.innerText = 'Try again?';
+} 
