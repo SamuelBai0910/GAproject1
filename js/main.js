@@ -206,7 +206,7 @@ const showResult = function() {
   const guessCodeStr = guessCode.join('');
   const secretCodeStr = secretCode.join('');
 
-  if (guessCodeStr === secretCodeStr) {
+  if (guessCodeStr === secretCodeStr && guessCodeStr !== '' && secretCodeStr !== '') {
     openShield()
     showWin()
     gameEnd()
@@ -240,7 +240,7 @@ const gameEnd = function () {
 }
 
 
-//Quick test the losing result
+//Quick test the Lose resul
 const testGameResult = function() {
   codePegs.forEach((codePeg) => {
     codePeg.style.backgroundColor = 'red';
