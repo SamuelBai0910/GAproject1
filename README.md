@@ -35,10 +35,20 @@ Feedback explanation:
 
 * If any of the code pegs are in the correct color and position, player will get feedback of  black key peg.
 * If any of the code pegs are in the correct color but wrong position, player will get feedback of white key peg. 
-* No feedback if the color and position are wrong。
+* No feedback if the color and position are wrong.
 
 # Screenshot
+## Statement of initialization
+![alt text](https://raw.githubusercontent.com/SamuelBai0910/GAproject1/main/img/Statement%20of%20Initialazition.png)
 
+## Statement of guessing
+![alt text](https://raw.githubusercontent.com/SamuelBai0910/GAproject1/main/img/Statement%20of%20guessing.png)
+
+## Statement of winning
+![alt text](https://raw.githubusercontent.com/SamuelBai0910/GAproject1/main/img/Statement%20of%20winning.png)
+
+## Statement of losing
+![alt text](https://github.com/SamuelBai0910/GAproject1/blob/main/img/Statement%20of%20losing.png)
 
 
 # Technologies Used
