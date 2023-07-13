@@ -26,7 +26,6 @@ let selectedColor;
 //Create a variable to store the statement of game.
 let gameEnded = true;
 
-//
 let row = 9;
 
 /*----- cached elements  -----*/
@@ -72,9 +71,11 @@ const result = document.querySelector('#title');
 //only the codePeg that be clicked can change style.
 startBtn.addEventListener ('click', function() {
   //make sure there's only pick secretCode one time when start button clicked
+  closeShield()
+  confirmBtn.disabled = false;
   result.innerText = 'MasterMind';
   shield.forEach((keyPeg) => {
-    keyPeg.style.backgroundColor = ('gray');
+    keyPeg.style.backgroundColor = ('lightseagreen');
   })
   if (!gameStarted) {
     pickSecretCode();
@@ -89,13 +90,13 @@ startBtn.addEventListener ('click', function() {
   //initialize the color of all codePegs
   for (let i = 0; i < 40; i++) {
     let codePeg = codePegs[i];
-    codePeg.style.backgroundColor = 'gray';
+    codePeg.style.backgroundColor = 'lightseagreen';
     codePeg.style.boxShadow = 'none';
   }
   //initialize the color of all keyPegs
   for (let i = 0; i < 40; i++) {
     let keyPeg = keyPegs[i];
-    keyPeg.style.backgroundColor = 'gray';
+    keyPeg.style.backgroundColor = 'lightseagreen';
   }
 });
 
@@ -117,9 +118,9 @@ for (const codePeg of codePegs) {
 //Use array[],DOM classname 'selected', background of codePeg to manage which row can be selected from array[9] to array [0]. Based on add event listener to confirm button.
 confirmBtn.addEventListener('click', function() {
   //find background color 'gray' in current row.
-  const isGray = currentCodePegArr[row].find((codePeg) => codePeg.style.backgroundColor === 'gray');
+  const islightseagreen = currentCodePegArr[row].find((codePeg) => codePeg.style.backgroundColor === 'lightseagreen');
 
-  if (isGray) {
+  if (islightseagreen) {
     return;
   } else {
     PickGuessCode()
@@ -221,6 +222,13 @@ const showResult = function() {
 const openShield = function () {
   for (let i = 0; i < 4; i++) {
     shield[i].style.backgroundColor = secretCode[i];
+    shield[i].innerText = '';
+  }
+}
+
+const closeShield = function () {
+  for (let i = 0; i < 4; i++) {
+    shield[i].innerText = '?';
   }
 }
 
@@ -236,17 +244,16 @@ const gameEnd = function () {
   codePegs.forEach((codePeg) => {
     codePeg.classList.remove('selectable');
     codePeg.style.boxShadow = 'none';
+    confirmBtn.disabled = true;
   })
 }
 
-
-//Quick test the Lose resul
+//Quick test the Lose result
 const testGameResult = function() {
   codePegs.forEach((codePeg) => {
-    codePeg.style.backgroundColor = 'red';
+    codePeg.style.backgroundColor = 'green';
   });
     openShield()
     showLose()
     gameEnd()
 }
-// testGameResult()
