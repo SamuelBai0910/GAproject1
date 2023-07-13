@@ -134,6 +134,7 @@ confirmBtn.addEventListener('click', function() {
     });
     row = row - 1;
     initGuessCode()
+
   } 
 });
 
@@ -172,19 +173,21 @@ const initGuessCode = function() {
 }
 
 const compareCodes = function() {
-
   const blackKeyIndexes = [];
   const whiteKeyIndexes = [];
+  const wrongKeyIndexes = [];
 
   for (let i = 0; i < secretCode.length; i++) {
     if (secretCode[i] === guessCode[i]) {
       blackKeyIndexes.push(i);
-    } else if (secretCode.includes(guessCode[i])) {
+    } else if (secretCode[i] !== guessCode[i] && guessCode.includes(secretCode[i])) {
       whiteKeyIndexes.push(i);
+    } else {
+      wrongKeyIndexes.push(i);
     }
   }
 
-  for (const index of [...blackKeyIndexes, ...whiteKeyIndexes]) {
+  for (const index of [...blackKeyIndexes, ...whiteKeyIndexes, ...wrongKeyIndexes]) {
     const currentKeyPegs = currentKeyPegArr[row];
 
     const randomIndex = Math.floor(Math.random() * currentKeyPegs.length);
@@ -192,6 +195,8 @@ const compareCodes = function() {
     
     if (blackKeyIndexes.includes(index)) {
       currentKeyPeg.style.backgroundColor = 'black';
+    } else if (wrongKeyIndexes.includes(index)) {
+      currentKeyPeg.style.backgroundColor = 'lightseagreen';
     } else {
       currentKeyPeg.style.backgroundColor = 'white';
     }
@@ -200,6 +205,7 @@ const compareCodes = function() {
   }
   return;
 };
+
 
 const showResult = function() {
   const guessCodeStr = guessCode.join('');
