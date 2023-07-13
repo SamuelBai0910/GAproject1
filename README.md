@@ -3,7 +3,7 @@
 
   Github Repository: https://github.com/SamuelBai0910/GAproject1/
 
-  Github Pages: https://samuelbai0910.github.io/GAproject1/
+  Github Pages: https://SamuelBai0910.github.io//GAproject1/
 
 # MasterMind history
 
