@@ -1,28 +1,8 @@
-/*
-Pseudocode for the overall gameplay
-0.Check on the console when finished one step, don't run too far.
-1.Create a object to store data of code pegs {yello:1, ...white:6}
-2.Create a object to store data of key pegs {black:1, wihte:0}
-3.Generate a random secret code consisting of colored pegs. done
-4.Write a init function that render() when game end.
-5.Set the maximum guesses round number of 10.
-6.Repeat untill player win or runs out of guesses round.
-  6.1. Display the game board with the current guess history.
-  6.2. Validate the player's guess.
-  6.3. Evaluate the player's guess against the secret code and provide feedback.
-  6.4. Add the player's guess to the guess history.
-  6.5. Decrease the number of remaining guesses.
-7.Display a victory message if player wins.
-8.Display a defeat message and reveal the secret code if player runs out of guesses round.
-*/
-
 /*----- constants -----*/
 //Create a constant to store the value of colors.
 const colors = [
   'yellow', 'green', 'red', 'blue', 'white', 'black'
 ];
-
-//
 
 /*----- state variables -----*/
 //Make sure computer just pick secret code one time when clicked the startBtn.
@@ -30,6 +10,9 @@ let gameStarted = false;
 
 //Create a variable to store the secret code.
 let secretCode = [];
+
+//Create a variable to store the secret code.
+let currentKeyPegs = [];
 
 //Create a variable to store the codepeg that be clicked curretly.
 let currentCodePeg = null;
@@ -55,20 +38,28 @@ const confirmBtn = document.getElementById('confirmBtn');
 //Create an array that contains all div.codePegs, can use array.length to get row information.
 const codePegRows = document.querySelectorAll('.codePegs');
 
+const KeyPegRows = document.querySelectorAll('.keyPegs');
+
 //Create an array that contains all div.codePeg
 const codePegs = document.querySelectorAll('.codePeg');
+
+//Create an array that contains all div.keyPeg
+const keyPegs = document.querySelectorAll('.keyPeg');
 
 //cache colors divs to add event listener to store the color that be picked.
 const colorSelections = document.querySelectorAll('.color');
 
-//Translate all HTML element needed to array.
+//Translate currentCodePeg and currentKeyPeg to array.
 const numRows = codePegRows.length;
-const currentRowArrays = [];
+const currentCodePegArr = [];
+const currentKeyPegArr = [];
 let guessCode = [];
 
 for (let i = 0; i < numRows; i++) {
-  currentRowArrays[i] = Array.from(codePegRows[i].children);
+  currentCodePegArr[i] = Array.from(codePegRows[i].children);
+  currentKeyPegArr[i] = Array.from(KeyPegRows[i].children);
 }
+
 
 /*----- event listeners -----*/
 //only the codePeg that be clicked can change style.
@@ -88,6 +79,12 @@ startBtn.addEventListener ('click', function() {
   for (let i = 0; i < 40; i++) {
     let codePeg = codePegs[i];
     codePeg.style.backgroundColor = 'gray';
+    codePeg.style.boxShadow = 'none';
+  }
+  //initialize the color of all keyPegs
+  for (let i = 0; i < 40; i++) {
+    let keyPeg = keyPegs[i];
+    keyPeg.style.backgroundColor = 'gray';
   }
 });
 
@@ -109,37 +106,25 @@ for (const codePeg of codePegs) {
 //Use array[],DOM classname 'selected', background of codePeg to manage which row can be selected from array[9] to array [0]. Based on add event listener to confirm button.
 confirmBtn.addEventListener('click', function() {
   //find background color 'gray' in current row.
-  const isGray = currentRowArrays[row].find((codePeg) => codePeg.style.backgroundColor === 'gray');
+  const isGray = currentCodePegArr[row].find((codePeg) => codePeg.style.backgroundColor === 'gray');
 
   if (isGray) {
     return;
   } else {
-
     PickGuessCode()
-
     console.log(guessCode);
-
-    currentRowArrays[row].forEach((codePeg) => {
+    compareCodes()
+    currentCodePegArr[row].forEach((codePeg) => {
       codePeg.classList.remove('selectable');
-    });
-    
-    currentRowArrays[row - 1].forEach((codePeg) => {
+    });    
+    currentCodePegArr[row - 1].forEach((codePeg) => {
       codePeg.classList.add('selectable');
     });
-    
-
     row = row - 1;
-
-    init()
-    
+    initGuessCode()
     console.log(row);
   } 
-  
 });
-
-
-
-
 
 //make sure the id name of clicked color is the backgroundcolor of codePeg
 for (const colorSelection of colorSelections) {
@@ -162,17 +147,45 @@ const pickSecretCode = function () {
 }
 
 const PickGuessCode = function () {
-  //'4' also can be a variable if want to change the length of codePeg.
   for (let i = 0; i < 4; i++) {
     if (guessCode.length < 4) {
-    guessCode.push(currentRowArrays[row][i].style.backgroundColor);
+    guessCode.push(currentCodePegArr[row][i].style.backgroundColor);
   } else {
     return guessCode;
   }
 }
 }
 
-function init () {
- guessCode = [];
+const initGuessCode = function() {
+  guessCode = [];
 }
+
+const compareCodes = function() {
+
+  const blackKeyIndexes = [];
+  const whiteKeyIndexes = [];
+
+  for (let i = 0; i < secretCode.length; i++) {
+    if (secretCode[i] === guessCode[i]) {
+      blackKeyIndexes.push(i);
+    } else if (secretCode.includes(guessCode[i])) {
+      whiteKeyIndexes.push(i);
+    }
+  }
+
+  for (const index of [...blackKeyIndexes, ...whiteKeyIndexes]) {
+    const currentKeyPegs = currentKeyPegArr[row];
+
+    const randomIndex = Math.floor(Math.random() * currentKeyPegs.length);
+    const currentKeyPeg = currentKeyPegs[randomIndex];
+    
+    if (blackKeyIndexes.includes(index)) {
+      currentKeyPeg.style.backgroundColor = 'black';
+    } else {
+      currentKeyPeg.style.backgroundColor = 'white';
+    }
+    
+    currentKeyPegs.splice(randomIndex, 1);
+  }
+};
 
