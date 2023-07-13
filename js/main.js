@@ -26,6 +26,7 @@ let selectedColor;
 //Create a variable to store the statement of game.
 let gameEnded = true;
 
+//
 let row = 9;
 
 /*----- cached elements  -----*/
@@ -123,11 +124,11 @@ confirmBtn.addEventListener('click', function() {
     currentCodePegArr[row].forEach((codePeg) => {
       codePeg.classList.remove('selectable');
     });    
+    compareCodes()
+    showResult()
     currentCodePegArr[row - 1].forEach((codePeg) => {
       codePeg.classList.add('selectable');
     });
-    compareCodes()
-    showResult()
     row = row - 1;
     initGuessCode()
     console.log(row);
@@ -203,14 +204,15 @@ const showResult = function() {
   const secretCodeStr = secretCode.join('');
 
   if (guessCodeStr === secretCodeStr) {
-    gameEnd()
     openShield()
     showWin()
-  } else if (guessCodeStr !== secretCodeStr && row === 0) {
     gameEnd()
+  } else if (guessCodeStr !== secretCodeStr && row === 0) {
     openShield()
     showLose()
-  } return;
+    gameEnd()
+    return;
+  } 
 }
 
 const openShield = function () {
