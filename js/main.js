@@ -124,7 +124,6 @@ confirmBtn.addEventListener('click', function() {
     return;
   } else {
     PickGuessCode()
-    console.log(guessCode);
     currentCodePegArr[row].forEach((codePeg) => {
       codePeg.classList.remove('selectable');
     });    
@@ -135,7 +134,6 @@ confirmBtn.addEventListener('click', function() {
     });
     row = row - 1;
     initGuessCode()
-    console.log(row);
   } 
 });
 
