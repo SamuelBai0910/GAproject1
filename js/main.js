@@ -120,13 +120,14 @@ confirmBtn.addEventListener('click', function() {
   } else {
     PickGuessCode()
     console.log(guessCode);
-    compareCodes()
     currentCodePegArr[row].forEach((codePeg) => {
       codePeg.classList.remove('selectable');
     });    
     currentCodePegArr[row - 1].forEach((codePeg) => {
       codePeg.classList.add('selectable');
     });
+    compareCodes()
+    showResult()
     row = row - 1;
     initGuessCode()
     console.log(row);
@@ -194,7 +195,23 @@ const compareCodes = function() {
     
     currentKeyPegs.splice(randomIndex, 1);
   }
+  return;
 };
+
+const showResult = function() {
+  const guessCodeStr = guessCode.join('');
+  const secretCodeStr = secretCode.join('');
+
+  if (guessCodeStr === secretCodeStr) {
+    gameEnd()
+    openShield()
+    showWin()
+  } else if (guessCodeStr !== secretCodeStr && row === 0) {
+    gameEnd()
+    openShield()
+    showLose()
+  } return;
+}
 
 const openShield = function () {
   for (let i = 0; i < 4; i++) {
@@ -209,3 +226,10 @@ const showWin = function () {
 const showLose = function () {
   result.innerText = 'Try again?';
 } 
+
+const gameEnd = function () {
+  codePegs.forEach((codePeg) => {
+    codePeg.classList.remove('selectable');
+    codePeg.style.boxShadow = 'none';
+  })
+}
