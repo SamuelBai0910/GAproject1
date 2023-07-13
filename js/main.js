@@ -73,6 +73,9 @@ const result = document.querySelector('#title');
 startBtn.addEventListener ('click', function() {
   //make sure there's only pick secretCode one time when start button clicked
   result.innerText = 'MasterMind';
+  shield.forEach((keyPeg) => {
+    keyPeg.style.backgroundColor = ('gray');
+  })
   if (!gameStarted) {
     pickSecretCode();
     gameStarted = true;
@@ -235,3 +238,15 @@ const gameEnd = function () {
     codePeg.style.boxShadow = 'none';
   })
 }
+
+
+//Quick test the losing result
+const testGameResult = function() {
+  codePegs.forEach((codePeg) => {
+    codePeg.style.backgroundColor = 'red';
+  });
+    openShield()
+    showLose()
+    gameEnd()
+}
+// testGameResult()
