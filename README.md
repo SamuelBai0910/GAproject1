@@ -61,6 +61,8 @@ Feedback explanation:
 # Getting Started
 [Click to Play MasterMind!](https://SamuelBai0910.github.io/GAproject1)
 
+## 
+
 # Next Steps
 * Color selections can follow the positon of current code peg.
 * The max count of code peg color can be changed to 8 or 10.

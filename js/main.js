@@ -68,9 +68,9 @@ for (let i = 0; i < numRows; i++) {
 const result = document.querySelector('#title');
 
 /*----- event listeners -----*/
-//only the codePeg that be clicked can change style.
+//1.only the codePeg that be clicked can change style.
 startBtn.addEventListener ('click', function() {
-  //make sure there's only pick secretCode one time when start button clicked
+  //initialization
   closeShield()
   confirmBtn.disabled = false;
   result.innerText = 'MasterMind';
@@ -82,7 +82,7 @@ startBtn.addEventListener ('click', function() {
     gameStarted = true;
     console.log(secretCode);
   }
-  //Control selections using DOM with adding classname 'selectable'.
+  //Starting game with adding classname 'selectable' on first row
   const initialCodePegs = Array.from(codePegRows[9].children);
   initialCodePegs.forEach((codePeg) => {
     codePeg.classList.add('selectable');
@@ -100,7 +100,7 @@ startBtn.addEventListener ('click', function() {
   }
 });
 
-//codePeg change style when it's clicked, others won't.
+//1. 9.Using classname to manage selection. codePeg change style when it's selectable, others won't.
 for (const codePeg of codePegs) {
   codePeg.addEventListener('click', function(evt) {
     //Style of codePeg should be initialazition when not be clicked.
@@ -115,7 +115,7 @@ for (const codePeg of codePegs) {
   });
 }
 
-//Use array[],DOM classname 'selected', background of codePeg to manage which row can be selected from array[9] to array [0]. Based on add event listener to confirm button.
+//1. 10.Use array[],DOM classname 'selected', background of codePeg to manage which row can be selected from array[9] to array [0]. Based on add event listener to confirm button.
 confirmBtn.addEventListener('click', function() {
   //find background color 'gray' in current row.
   const islightseagreen = currentCodePegArr[row].find((codePeg) => codePeg.style.backgroundColor === 'lightseagreen');
@@ -138,7 +138,7 @@ confirmBtn.addEventListener('click', function() {
   } 
 });
 
-//make sure the id name of clicked color is the backgroundcolor of codePeg
+//8. make sure the id name of clicked color is the backgroundcolor of codePeg
 for (const colorSelection of colorSelections) {
   colorSelection.addEventListener('click', function(evt) {
     selectedColor = evt.target.id;
@@ -149,7 +149,7 @@ for (const colorSelection of colorSelections) {
 }
 
 /*----- functions -----*/
-//let computer pick four random colors as secrect code
+//2.let computer pick four random colors as secrect code
 const pickSecretCode = function () {
   //'4' also can be a variable if want to change the length of codePeg.
   for (let i = 0; i < 4; i++) {
@@ -158,6 +158,7 @@ const pickSecretCode = function () {
   return secretCode;
 }
 
+//3.with this function we can see the guess code color
 const PickGuessCode = function () {
   for (let i = 0; i < 4; i++) {
     if (guessCode.length < 4) {
@@ -168,25 +169,32 @@ const PickGuessCode = function () {
 }
 }
 
+//4.this function will initialize array of guess code
 const initGuessCode = function() {
   guessCode = [];
 }
 
+//5.
 const compareCodes = function() {
   const blackKeyIndexes = [];
   const whiteKeyIndexes = [];
   const wrongKeyIndexes = [];
 
   for (let i = 0; i < secretCode.length; i++) {
+    //5.1 for black
     if (secretCode[i] === guessCode[i]) {
       blackKeyIndexes.push(i);
+      //5.1 for white
     } else if (secretCode[i] !== guessCode[i] && guessCode.includes(secretCode[i])) {
       whiteKeyIndexes.push(i);
-    } else {
+    } 
+    //5.1 for totally wrong
+    else {
       wrongKeyIndexes.push(i);
     }
   }
 
+  //5.2randomly filling the key pegs with black and white colors. 
   for (const index of [...blackKeyIndexes, ...whiteKeyIndexes, ...wrongKeyIndexes]) {
     const currentKeyPegs = currentKeyPegArr[row];
 
@@ -206,16 +214,18 @@ const compareCodes = function() {
   return;
 };
 
-
+//6.The showResult function includes different style changes for different game results
 const showResult = function() {
   const guessCodeStr = guessCode.join('');
   const secretCodeStr = secretCode.join('');
-
+  //6.1 this is for winning
   if (guessCodeStr === secretCodeStr && guessCodeStr !== '' && secretCodeStr !== '') {
     openShield()
     showWin()
     gameEnd()
-  } else if (guessCodeStr !== secretCodeStr && row === 0) {
+  }
+  //6.1 this is for losing
+   else if (guessCodeStr !== secretCodeStr && row === 0) {
     openShield()
     showLose()
     gameEnd()
@@ -223,6 +233,7 @@ const showResult = function() {
   } 
 }
 
+//7.and these are all about style changes when game ended.
 const openShield = function () {
   for (let i = 0; i < 4; i++) {
     shield[i].style.backgroundColor = secretCode[i];
@@ -230,20 +241,24 @@ const openShield = function () {
   }
 }
 
+//7.and these are all about style changes when game ended.
 const closeShield = function () {
   for (let i = 0; i < 4; i++) {
     shield[i].innerText = '?';
   }
 }
 
+//7.and these are all about style changes when game ended.
 const showWin = function () {
   result.innerText = 'You win! Master!';
 } 
 
+//7.and these are all about style changes when game ended.
 const showLose = function () {
   result.innerText = 'Try again?';
 } 
 
+//7.and these are all about style changes when game ended.
 const gameEnd = function () {
   codePegs.forEach((codePeg) => {
     codePeg.classList.remove('selectable');
@@ -252,13 +267,3 @@ const gameEnd = function () {
   })
 }
 
-//Quick test the Lose result
-const testGameResult = function() {
-  codePegs.forEach((codePeg) => {
-    codePeg.style.backgroundColor = 'green';
-  });
-    compareCodes()
-    openShield()
-    showLose()
-    gameEnd()
-}
