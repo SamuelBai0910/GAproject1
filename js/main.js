@@ -185,7 +185,7 @@ const compareCodes = function() {
     if (secretCode[i] === guessCode[i]) {
       blackKeyIndexes.push(i);
       //5.1 for white
-    } else if (secretCode[i] !== guessCode[i] && guessCode.includes(secretCode[i])) {
+    } else if (secretCode[i] !== guessCode[i] && guessCode.includes(secretCode[i]) && !blackKeyIndexes.includes(i) && !whiteKeyIndexes.includes(i)) {
       whiteKeyIndexes.push(i);
     } 
     //5.1 for totally wrong

@@ -59,7 +59,7 @@ Feedback explanation:
 
 
 # Getting Started
-[Click to Play MasterMind!](https://SamuelBai0910.github.io/GAproject1)
+[Click to Play MasterMind!](http://localhost:3000/)
 
 ## 
 
